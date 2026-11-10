@@ -9,3 +9,6 @@ dependencies = [
     # out until it has been tested against this plugin.
     "ddtrace>=2.10,<5",
 ]
+
+[tool.setuptools]
+py-modules = ["spans", "tracer"]
