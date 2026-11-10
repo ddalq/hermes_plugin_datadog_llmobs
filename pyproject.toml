@@ -1,0 +1,11 @@
+[project]
+name = "hermes-plugin-datadog-llmobs"
+version = "1.0.0"
+description = "Datadog Agent Observability (LLM Observability) plugin for Hermes Agent"
+requires-python = ">=3.10"
+dependencies = [
+    # Floor is the oldest release with the LLMObs inline span API and `integrations_enabled`;
+    # ceiling keeps a future major (which changes the manual-instrumentation error contract)
+    # out until it has been tested against this plugin.
+    "ddtrace>=2.10,<5",
+]

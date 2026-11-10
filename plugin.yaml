@@ -1,0 +1,41 @@
+name: datadog-llmobs
+version: 1.0.0
+manifest_version: 2
+description: "Datadog Agent Observability (LLM Observability) for Hermes: one agent trace per turn, one LLM span per provider request, one tool span per tool call and one agent span per subagent. Configured with DD_API_KEY, DD_SITE and DD_LLMOBS_ML_APP."
+author: ddalq
+license: MIT
+tags: [observability, datadog, llm-observability]
+requires_env:
+  - name: DD_API_KEY
+    description: "Datadog API key used to submit Agent Observability (LLM Observability) data."
+    url: "https://app.datadoghq.com/organization-settings/api-keys"
+    secret: true
+config_schema:
+  capture_content:
+    type: bool
+    default: true
+    label: "Capture prompt and tool content"
+    description: "Send prompt/completion text and tool arguments/results to Datadog. Turn this off to send metadata and token metrics only."
+  ml_app:
+    type: str
+    default: hermes-agent
+    label: "Agent Observability application name"
+    description: "The application all spans are grouped under. Overridden by the DD_LLMOBS_ML_APP environment variable."
+  site:
+    type: str
+    default: datadoghq.com
+    label: "Datadog site"
+    description: "The Datadog site your API key belongs to. Overridden by the DD_SITE environment variable."
+provides_hooks:
+  - pre_llm_call
+  - post_llm_call
+  - pre_api_request
+  - post_api_request
+  - api_request_error
+  - pre_auxiliary_call
+  - post_auxiliary_call
+  - pre_tool_call
+  - post_tool_call
+  - subagent_start
+  - subagent_stop
+  - on_session_end
